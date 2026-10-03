@@ -26,9 +26,9 @@
       <section class="slide slide--cover is-active" id="slide-1" aria-labelledby="title-1" data-title="Portada" tabindex="-1">
         <div class="cover-grid" aria-hidden="true"></div>
         <div class="cover-layout">
-          <div class="cover-copy">
+          <div class="cover-copy reveal">
             <p class="cover-kicker"><span class="kicker-pulse" aria-hidden="true"></span> UNA HABILIDAD CLAVE DE INGENIERÍA</p>
-            <h1 id="title-1">Storytelling <span>para perfiles</span> <em>técnicos</em> de Ingeniería</h1>
+            <h1 id="title-1"><span class="cover-title-brand">Storytelling</span><span>para perfiles</span><span class="cover-title-last"><em>técnicos</em> de Ingeniería</span></h1>
             <p class="cover-lead">Convierte lo que construyes en una historia clara, humana y difícil de olvidar.</p>
             <div class="cover-meta" aria-label="Datos del curso">
               <div class="cover-meta-item cover-meta-wide">
@@ -50,7 +50,7 @@
             </div>
           </div>
 
-          <div class="cover-visual-column">
+          <div class="cover-visual-column reveal" style="--delay:130ms">
             <div class="cover-art" aria-label="Ilustración de una señal técnica que se transforma en una historia" role="img">
               <svg class="cover-circuit" viewBox="0 0 560 390" fill="none" aria-hidden="true">
                 <defs>
@@ -328,7 +328,7 @@
         <div class="closing-layout">
           <div class="closing-main">
             <div class="closing-topline"><p class="eyebrow"><span class="eyebrow-dot"></span> 09 / LA IDEA QUE NOS LLEVAMOS</p><span class="closing-mark" aria-hidden="true">S/</span></div>
-            <div class="closing-copy">
+            <div class="closing-copy reveal">
               <p class="closing-pretitle">RESOLVER ES SOLO LA MITAD.</p>
               <h2 id="title-9">Un buen profesional técnico no solo sabe resolver problemas; <span>también sabe explicar el valor de sus soluciones.</span></h2>
               <div class="closing-route" aria-label="Problema, decisión, impacto, aprendizaje"><span>PROBLEMA</span><i></i><span>DECISIÓN</span><i></i><span>IMPACTO</span><i></i><span>APRENDIZAJE</span></div>
@@ -336,7 +336,7 @@
             </div>
             <div class="closing-footer"><span>EMPLEABILIDAD</span><i></i><span>COMUNICACIÓN</span><i></i><span>MARCA PERSONAL</span></div>
           </div>
-          <aside class="sources-panel" aria-labelledby="sources-title">
+          <aside class="sources-panel reveal" style="--delay:140ms" aria-labelledby="sources-title">
             <div class="sources-heading"><span>LECTURAS Y BASES</span><span>APA 7.ª</span></div>
             <h3 id="sources-title">Fuentes bibliográficas</h3>
             <ol class="reference-list">
@@ -377,7 +377,12 @@
       <button class="nav-button nav-button--next" id="next-slide" type="button" aria-label="Diapositiva siguiente">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
       </button>
-      <p class="keyboard-hint"><kbd>←</kbd><kbd>→</kbd><span>o espacio</span></p>
+      <button class="fullscreen-toggle" id="fullscreen-toggle" type="button" aria-label="Activar pantalla completa" aria-pressed="false" title="Pantalla completa (F)">
+        <svg class="fullscreen-icon fullscreen-icon--enter" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"/></svg>
+        <svg class="fullscreen-icon fullscreen-icon--exit" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4m16 0h-5V4m0 16v-5h5M4 15h5v5"/></svg>
+        <span class="fullscreen-toggle-label">Pantalla completa</span>
+      </button>
+      <p class="keyboard-hint"><kbd>←</kbd><kbd>→</kbd><span>o espacio</span><kbd>F</kbd></p>
       <span class="sr-only" id="slide-announcement" aria-live="polite" aria-atomic="true">Diapositiva 1 de 9: Portada</span>
     </nav>
   </div>

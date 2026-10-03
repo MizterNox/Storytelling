@@ -994,3 +994,174 @@ kbd { font-size: .7rem; }
   .impact-note p { font-size: .78rem; }
   .impact-note strong { font-size: .84rem; }
 }
+
+/* Final cover fit: the hero grows with its content instead of cropping names or course details. */
+.slide--cover {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(215, 252, 112, .38) transparent;
+}
+.slide--cover::-webkit-scrollbar { width: 6px; }
+.slide--cover::-webkit-scrollbar-thumb { border-radius: 99px; background: rgba(215, 252, 112, .38); }
+.cover-layout {
+  height: auto;
+  min-height: 100%;
+  align-items: stretch;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
+  gap: clamp(20px, 3.2vw, 48px);
+}
+.cover-copy { justify-content: center; min-height: 0; padding-block: 4px; }
+.cover-copy h1 { max-width: 10em; font-size: clamp(2.35rem, 4.7vw, 4.55rem); line-height: .97; }
+.cover-copy h1 .cover-title-brand { color: #f2f3ea; font-weight: 680; }
+.cover-copy h1 .cover-title-last { color: #f2f3ea; font-weight: 480; }
+.cover-lead { margin-block: clamp(12px, 1.5vw, 19px) clamp(14px, 1.8vw, 23px); }
+.cover-meta { gap: 9px 18px; padding-top: 13px; }
+.cover-visual-column { height: auto; min-height: 0; align-self: stretch; justify-content: center; }
+.cover-art { min-height: clamp(210px, 31vh, 310px); max-height: 360px; }
+.team-list { grid-template-columns: 1fr; gap: 4px; }
+.team-card { padding: 10px 13px; }
+
+@media (max-height: 620px) and (min-width: 821px) {
+  .slide--cover { padding-top: 18px; padding-bottom: 16px; }
+  .cover-layout { gap: 18px; }
+  .cover-copy h1 { font-size: clamp(2rem, 3.8vw, 3.45rem); line-height: .96; }
+  .cover-kicker { margin-bottom: 12px; }
+  .cover-lead { margin-block: 10px 12px; }
+  .cover-meta { gap: 7px 14px; padding-top: 10px; }
+  .cover-visual-column { gap: 7px; }
+  .cover-art { min-height: 175px; max-height: 220px; }
+  .team-card { padding: 7px 10px; }
+  .team-card-heading { margin-bottom: 5px; }
+  .team-list { gap: 3px; }
+  .instructor-line { margin-top: 6px; padding-top: 5px; }
+}
+
+/* Subtle motion in the circuit, milestones and closing details. */
+.cover-circuit path {
+  stroke-dasharray: 9 12;
+  animation: circuit-flow 18s linear infinite;
+}
+.cover-circuit path:last-of-type {
+  stroke-dasharray: 2 14;
+  animation-duration: 10s;
+}
+.cover-circuit circle:first-of-type { animation: ring-breathe 5.5s ease-in-out infinite; }
+.cover-circuit circle:nth-of-type(2) { animation: ring-breathe 6.5s ease-in-out -2s infinite; }
+.speech-core { animation: core-bloom 5.2s ease-in-out infinite; }
+.orbit-badge { animation: badge-float 4.8s ease-in-out infinite; }
+.orbit-badge--two { animation-delay: -1.6s; }
+.orbit-badge--three { animation-delay: -3.1s; }
+.code-chip { animation: chip-glow 5s ease-in-out infinite; }
+.team-list li { animation: member-in .55s ease-out both; }
+.team-list li:nth-child(1) { animation-delay: .24s; }
+.team-list li:nth-child(2) { animation-delay: .34s; }
+.team-list li:nth-child(3) { animation-delay: .44s; }
+.framework-step { transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
+.framework-step:hover { transform: translateY(-4px); border-color: rgba(69, 95, 246, .35); box-shadow: 0 12px 26px rgba(36, 52, 59, .08); }
+.framework-step:hover .step-node { border-color: var(--blue); box-shadow: 0 0 0 5px rgba(69, 95, 246, .09); }
+.story-beats i { transform-origin: left center; animation: signal-line 1.8s ease-in-out infinite; }
+.story-beats i:nth-of-type(2) { animation-delay: .35s; }
+.brand-wave i { transform-origin: center; animation: wave-bounce .85s ease-in-out infinite alternate; }
+.brand-wave i:nth-child(2n) { animation-delay: -.4s; }
+.brand-wave i:nth-child(3n) { animation-delay: -.2s; }
+.quick-check i { animation: tiny-pulse 1.9s ease-in-out infinite; }
+.quick-check i:nth-of-type(2) { animation-delay: .25s; }
+.quick-check i:nth-of-type(3) { animation-delay: .5s; }
+.quick-check i:nth-of-type(4) { animation-delay: .75s; }
+.closing-mark { animation: mark-tilt 6s ease-in-out infinite; }
+
+@keyframes circuit-flow { to { stroke-dashoffset: -126; } }
+@keyframes ring-breathe { 0%, 100% { opacity: .5; } 50% { opacity: .95; } }
+@keyframes core-bloom {
+  0%, 100% { box-shadow: 0 0 45px rgba(215, 252, 112, .07), inset 0 0 22px rgba(215, 252, 112, .025); }
+  50% { box-shadow: 0 0 65px rgba(215, 252, 112, .15), inset 0 0 28px rgba(215, 252, 112, .06); }
+}
+@keyframes badge-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+@keyframes chip-glow { 0%, 100% { box-shadow: 0 12px 30px rgba(0, 0, 0, .18); } 50% { box-shadow: 0 15px 34px rgba(0, 0, 0, .24), 0 0 17px rgba(121, 225, 213, .12); } }
+@keyframes member-in { from { opacity: 0; translate: 0 5px; } to { opacity: 1; translate: 0 0; } }
+@keyframes signal-line { 0%, 100% { scale: .55 1; opacity: .45; } 50% { scale: 1 1; opacity: 1; } }
+@keyframes wave-bounce { from { scale: 1 .52; opacity: .58; } to { scale: 1 1.08; opacity: 1; } }
+@keyframes tiny-pulse { 0%, 100% { opacity: .4; scale: .8; } 50% { opacity: 1; scale: 1.25; } }
+@keyframes mark-tilt { 0%, 85%, 100% { rotate: -5deg; } 91% { rotate: 1deg; } 96% { rotate: -8deg; } }
+
+/* Full-screen controls and native presentation mode. */
+.deck-controls {
+  grid-template-columns: minmax(155px, 1fr) 42px minmax(180px, 1.15fr) 42px auto minmax(100px, 1fr);
+}
+.fullscreen-toggle {
+  display: inline-flex;
+  min-width: 142px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid rgba(223, 236, 225, .2);
+  border-radius: 999px;
+  background: rgba(238, 247, 235, .035);
+  color: #c5d1c9;
+  font: 700 .7rem/1 var(--mono);
+  letter-spacing: .015em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.fullscreen-toggle:hover,
+.fullscreen-toggle.is-active { transform: translateY(-1px); border-color: var(--lime); background: rgba(215, 252, 112, .1); color: var(--lime); }
+.fullscreen-toggle:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+.fullscreen-icon { width: 17px; height: 17px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.fullscreen-icon--exit { display: none; }
+.fullscreen-toggle.is-active .fullscreen-icon--enter { display: none; }
+.fullscreen-toggle.is-active .fullscreen-icon--exit { display: block; }
+.app-shell:fullscreen,
+.app-shell.pseudo-fullscreen {
+  width: 100%;
+  height: 100svh;
+  min-height: 0;
+  padding: 12px clamp(16px, 3vw, 48px);
+  overflow: auto;
+  background: radial-gradient(ellipse at 50% 48%, rgba(40, 66, 70, .22), transparent 62%), #0a1115;
+}
+.app-shell.pseudo-fullscreen { position: fixed; inset: 0; z-index: 1000; }
+.app-shell:fullscreen .deck { border-radius: 0; }
+
+@media (max-width: 820px) {
+  .slide--cover { overflow: visible; }
+  .cover-layout { height: auto; min-height: 0; grid-template-columns: 1fr; }
+  .cover-copy h1 { max-width: 10em; font-size: clamp(2.65rem, 10vw, 4.5rem); }
+  .cover-visual-column { height: auto; }
+  .cover-art { min-height: 0; }
+  .deck-controls { grid-template-columns: 38px minmax(0, 1fr) 38px 38px; gap: 8px; }
+  .nav-button--previous { grid-column: 1; grid-row: 1; }
+  .progress-cluster { grid-column: 2; grid-row: 1; gap: 10px; }
+  .nav-button--next { grid-column: 3; grid-row: 1; }
+  .fullscreen-toggle { grid-column: 4; grid-row: 1; min-width: 38px; width: 38px; height: 38px; padding: 0; border-radius: 50%; }
+  .fullscreen-toggle-label { display: none; }
+  .fullscreen-icon { width: 18px; height: 18px; }
+  .app-shell:fullscreen,
+  .app-shell.pseudo-fullscreen { width: 100%; height: 100svh; min-height: 0; padding: 9px 12px 10px; }
+}
+
+@media (max-width: 540px) {
+  .cover-visual-column { gap: 8px; }
+  .cover-art { height: clamp(260px, 66vw, 380px); }
+  .team-list { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-circuit path,
+  .cover-circuit circle,
+  .speech-core,
+  .orbit-badge,
+  .code-chip,
+  .team-list li,
+  .story-beats i,
+  .brand-wave i,
+  .quick-check i,
+  .closing-mark { animation: none !important; }
+  .framework-step,
+  .benefit-card,
+  .tip-card,
+  .brand-input { transition: none !important; }
+}

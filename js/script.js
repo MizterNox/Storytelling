@@ -1,23 +1,75 @@
 (() => {
   "use strict";
 
+  const appShell = document.querySelector(".app-shell");
   const deck = document.querySelector(".deck");
   const slides = Array.from(document.querySelectorAll(".slide"));
+  const fullscreenButton = document.getElementById("fullscreen-toggle");
+  const fullscreenLabel = fullscreenButton?.querySelector(".fullscreen-toggle-label");
   const previousButton = document.getElementById("previous-slide");
   const nextButton = document.getElementById("next-slide");
   const counter = document.getElementById("slide-counter");
   const announcement = document.getElementById("slide-announcement");
   const progressButtons = Array.from(document.querySelectorAll(".progress-step"));
 
-  if (!deck || slides.length === 0 || !previousButton || !nextButton) return;
+  if (!appShell || !deck || slides.length === 0 || !previousButton || !nextButton) return;
 
   let activeIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
+  let fallbackFullscreen = false;
   let touchStartX = null;
   let touchStartY = null;
 
   function formatNumber(number) {
     return String(number).padStart(2, "0");
   }
+
+  function isFullscreen() {
+    return document.fullscreenElement === appShell || fallbackFullscreen;
+  }
+
+  function syncFullscreenControl() {
+    if (!fullscreenButton) return;
+    const active = isFullscreen();
+    fullscreenButton.classList.toggle("is-active", active);
+    fullscreenButton.setAttribute("aria-pressed", String(active));
+    fullscreenButton.setAttribute("aria-label", active ? "Salir de pantalla completa" : "Activar pantalla completa");
+    fullscreenButton.title = active ? "Salir de pantalla completa (Esc)" : "Pantalla completa (F)";
+    if (fullscreenLabel) fullscreenLabel.textContent = active ? "Salir" : "Pantalla completa";
+  }
+
+  function setFallbackFullscreen(enabled) {
+    fallbackFullscreen = enabled;
+    appShell?.classList.toggle("pseudo-fullscreen", enabled);
+    syncFullscreenControl();
+    if (announcement && enabled) announcement.textContent = "Vista expandida activa. Pulsa F o el botón de pantalla completa para volver.";
+  }
+
+  async function toggleFullscreen() {
+    if (!appShell || !fullscreenButton) return;
+
+    if (fallbackFullscreen) {
+      setFallbackFullscreen(false);
+      return;
+    }
+
+    try {
+      if (document.fullscreenElement === appShell) {
+        await document.exitFullscreen();
+        return;
+      }
+      if (typeof appShell.requestFullscreen === "function" && document.fullscreenEnabled !== false) {
+        await appShell.requestFullscreen();
+      } else {
+        setFallbackFullscreen(true);
+      }
+    } catch (error) {
+      setFallbackFullscreen(true);
+    }
+  }
+
+  document.addEventListener("fullscreenchange", syncFullscreenControl);
+  fullscreenButton?.addEventListener("click", () => void toggleFullscreen());
+  syncFullscreenControl();
 
   function showSlide(targetIndex, direction = "forward") {
     const nextIndex = Math.min(Math.max(targetIndex, 0), slides.length - 1);
@@ -69,12 +121,24 @@
   window.addEventListener("keydown", (event) => {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
 
+    if (event.key === "Escape" && fallbackFullscreen) {
+      event.preventDefault();
+      setFallbackFullscreen(false);
+      return;
+    }
+
     const target = event.target instanceof Element ? event.target : null;
     const isTyping = target?.closest("input, textarea, select, [contenteditable='true'], [role='textbox']");
     const isLink = target?.closest("a");
     const isButton = target?.closest("button");
     const isSpace = event.key === " " || event.code === "Space";
     if (isTyping || isLink || (isButton && isSpace)) return;
+
+    if (event.key.toLowerCase() === "f") {
+      event.preventDefault();
+      void toggleFullscreen();
+      return;
+    }
 
     if (event.key === "ArrowRight" || event.key === "PageDown" || isSpace) {
       event.preventDefault();
